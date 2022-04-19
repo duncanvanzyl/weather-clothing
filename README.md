@@ -9,4 +9,4 @@ the clothing item is appropriate for the forecast, it returns True and is
 incremented. Once all comparisons are done, then the clothing item with the
 lowest value is the recommended item to wear.
 
-> See [Example Test](./tests/test_example.py) for basic usage.
+> See [Example Test](https://github.com/duncanvanzyl/weather-clothing/blob/main/tests/test_example.py) for basic usage.
