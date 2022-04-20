@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Optional, Union
 
 from .comparisons import Comparison
 
@@ -24,7 +25,7 @@ class ClothingItem:
     min_count: int = 2
     _count: int = field(repr=False, default=0)
 
-    def meets_criteria(self, forecast: dict[str, float | str]) -> bool:
+    def meets_criteria(self, forecast: dict[str, Union[float, str]]) -> bool:
         """Tests the comparisons against the provided forecast. If all of the
         comparisons meet the criteria, then returns True.
 
@@ -40,7 +41,7 @@ class ClothingItem:
         return True
 
     @property
-    def value(self) -> int | None:
+    def value(self) -> Optional[int]:
         """Returns its priority if the it has met the required criteria at least
         min_count times.
 

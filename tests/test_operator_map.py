@@ -1,15 +1,12 @@
-from weather_clothing.comparisons import (
-    OperatorMap,
-    equal,
-    greater_than,
-    less_than,
-    operator_map,
-)
+from typing import Union
+
 import pytest
+from weather_clothing.comparisons import (OperatorMap, equal, greater_than,
+                                          less_than, operator_map)
 
 
 def test_register():
-    def comparison_func(forecast: float | str, value: float | str) -> bool:
+    def comparison_func(forecast: Union[float, str], value: Union[float, str]) -> bool:
         return True
 
     operator = "|||"

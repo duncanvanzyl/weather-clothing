@@ -1,30 +1,30 @@
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Union
 
-ComparisonFunc = Callable[[float | str, float | str], bool]
+ComparisonFunc = Callable[[Union[float,  str], Union[float, str]], bool]
 
 
-def less_than(forecast: float | str, value: float | str) -> bool:
+def less_than(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast < value
 
 
-def less_than_equal(forecast: float | str, value: float | str) -> bool:
+def less_than_equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast <= value
 
 
-def equal(forecast: float | str, value: float | str) -> bool:
+def equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast == value
 
 
-def greater_than_equal(forecast: float | str, value: float | str) -> bool:
+def greater_than_equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast >= value
 
 
-def greater_than(forecast: float | str, value: float | str) -> bool:
+def greater_than(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast > value
 
 
-def not_equal(forecast: float | str, value: float | str) -> bool:
+def not_equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
     return forecast != value
 
 
@@ -32,9 +32,9 @@ def not_equal(forecast: float | str, value: float | str) -> bool:
 class Comparison:
     key: str
     compare_func: ComparisonFunc
-    value: float | str
+    value: Union[float, str]
 
-    def compare(self, forecast: dict[str, float | str]) -> bool:
+    def compare(self, forecast: dict[str, Union[float, str]]) -> bool:
         value = forecast[self.key]
         return self.compare_func(value, self.value)
 
@@ -85,12 +85,11 @@ class OperatorMap:
 
         try:
             # set value to a float if possible
-            value = float(value)
+            return Comparison(key, comparison, float(value))
         except ValueError:
             # otherwise leave it as a string
-            pass
+            return Comparison(key, comparison, value)
 
-        return Comparison(key, comparison, value)
 
 
 # This is an instantiated OperatorMap for easy use.
