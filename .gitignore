@@ -1,10 +1,12 @@
 # ignore venv
 venv
 
-# ignore pytest output
+# ignore test output
 coverage.xml
 .coverage
 .pytest_cache
+.mypy_cache
+.tox
 
 # ignore vscode
 .vscode

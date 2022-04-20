@@ -43,15 +43,14 @@ def test_example():
         (pants, "Rain Pants"),
         (boots, "Winter Boots"),
     ):
-        try:
-            priority = min([item.value for item in items if item.value is not None])
-            recommended = next((item for item in items if item.value == priority), None)
-            print(recommended.name)
-            assert recommended.name == expected
-        except ValueError:
-            print(
-                "I don't know what you should wear. You will have to decide for yourself."
-            )
+
+        priority = min([item.value for item in items if item.value is not None])
+        recommended = next((item for item in items if item.value == priority), None)
+        if recommended is None:
+            raise ValueError("no recommedation")
+        print(recommended.name)
+        assert recommended is not None
+        assert recommended.name == expected
 
 
 if __name__ == "__main__":
