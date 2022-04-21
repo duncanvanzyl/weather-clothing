@@ -31,17 +31,18 @@ def test_example():
     for items in (jackets, pants, boots):
         for prediction in forecast:
             for item in items:
-                if item.meets_criteria(prediction):
-                    item.inc()
+                item.meets_criteria(prediction, True)
+                # if item.meets_criteria(prediction):
+                #     item.inc()
 
     for items in (jackets, pants, boots):
         for item in items:
             print(f"{item.name} = {item.value}, {item._count}")
 
-    for items, expected in (
-        (jackets, "Winter Jacket"),
-        (pants, "Rain Pants"),
-        (boots, "Winter Boots"),
+    for items, expected_name, expected_confidence in (
+        (jackets, "Winter Jacket", 14 / 24),
+        (pants, "Rain Pants", 10 / 24),
+        (boots, "Winter Boots", 14 / 24),
     ):
 
         priority = min([item.value for item in items if item.value is not None])
@@ -50,7 +51,10 @@ def test_example():
             raise ValueError("no recommedation")
         print(recommended.name)
         assert recommended is not None
-        assert recommended.name == expected
+        assert recommended.name == expected_name
+        print(f"Confidence: {recommended.confidence}, N: {recommended.n}")
+        assert recommended.confidence == expected_confidence
+        assert recommended.n == 24
 
 
 if __name__ == "__main__":

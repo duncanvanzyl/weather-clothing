@@ -10,3 +10,8 @@ incremented. Once all comparisons are done, then the clothing item with the
 lowest value is the recommended item to wear.
 
 > See [Example Test](https://github.com/duncanvanzyl/weather-clothing/blob/main/tests/test_example.py) for basic usage.
+
+## Specific Usage
+
+This package was originally written to be used in the home assistant integration
+[Weather Clothing](https://github.com/duncanvanzyl/hass-weather-clothing).

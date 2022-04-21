@@ -1,3 +1,4 @@
+import pytest
 from weather_clothing.comparisons import (
     equal,
     greater_than,
@@ -6,7 +7,6 @@ from weather_clothing.comparisons import (
     less_than_equal,
     not_equal,
 )
-import pytest
 
 
 @pytest.mark.parametrize(
@@ -51,14 +51,13 @@ def test_equal(test_forecast, test_value, expected):
 @pytest.mark.parametrize(
     "test_forecast,test_value,expected",
     [
-        pytest.param("asdf", 1, TypeError, marks=pytest.mark.xfail),
-        pytest.param(1, "asdf", TypeError, marks=pytest.mark.xfail),
+        pytest.param("asdf", 1, TypeError),
+        pytest.param(1, "asdf", TypeError),
     ],
 )
 def test_equal_exception(test_forecast, test_value, expected):
-    # Todo: This might be a bug. Check if this can be modified.
     with pytest.raises(expected):
-        less_than_equal(test_forecast, test_value)
+        equal(test_forecast, test_value)
 
 
 @pytest.mark.parametrize(
@@ -103,11 +102,10 @@ def test_not_equal(test_forecast, test_value, expected):
 @pytest.mark.parametrize(
     "test_forecast,test_value,expected",
     [
-        pytest.param("asdf", 1, TypeError, marks=pytest.mark.xfail),
-        pytest.param(1, "asdf", TypeError, marks=pytest.mark.xfail),
+        pytest.param("asdf", 1, TypeError),
+        pytest.param(1, "asdf", TypeError),
     ],
 )
 def test_not_equal_exception(test_forecast, test_value, expected):
-    # Todo: This might be a bug. Check if this can be modified.
     with pytest.raises(expected):
         not_equal(test_forecast, test_value)

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Callable, Union
+from typing import Callable, Union, overload
 
-ComparisonFunc = Callable[[Union[float,  str], Union[float, str]], bool]
+ComparisonFunc = Callable[[Union[float, str], Union[float, str]], bool]
 
 
 def less_than(forecast: Union[float, str], value: Union[float, str]) -> bool:
@@ -13,6 +13,10 @@ def less_than_equal(forecast: Union[float, str], value: Union[float, str]) -> bo
 
 
 def equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
+    if not isinstance(forecast, type(value)):
+        raise TypeError(
+            f"'==' not supported between instances of '{type(forecast)}' and '{type(value)}'"
+        )
     return forecast == value
 
 
@@ -25,6 +29,10 @@ def greater_than(forecast: Union[float, str], value: Union[float, str]) -> bool:
 
 
 def not_equal(forecast: Union[float, str], value: Union[float, str]) -> bool:
+    if not isinstance(forecast, type(value)):
+        raise TypeError(
+            f"'!=' not supported between instances of '{type(forecast)}' and '{type(value)}'"
+        )
     return forecast != value
 
 
@@ -89,7 +97,6 @@ class OperatorMap:
         except ValueError:
             # otherwise leave it as a string
             return Comparison(key, comparison, value)
-
 
 
 # This is an instantiated OperatorMap for easy use.
